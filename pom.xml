@@ -36,6 +36,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Versoes internas - evita ciclo de import do bom -->
+            <dependency>
+                <groupId>br.com.aplicacoesBoilerplate</groupId>
+                <artifactId>boilerplate-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.aplicacoesBoilerplate</groupId>
+                <artifactId>boilerplate-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -67,6 +78,16 @@
                         <target>${java.version}</target>
                         <parameters>true</parameters>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.11.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
