@@ -1,4 +1,4 @@
-﻿package br.com.aplicacoesBoilerplate.core;
+package br.com.aplicacoesBoilerplate.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
