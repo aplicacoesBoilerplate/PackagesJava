@@ -1,0 +1,31 @@
+﻿name: Deploy - GitHub Packages (tag v* em master)
+
+on:
+  push:
+    tags: [''v*'']
+    branches: [master]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    if: startsWith(github.ref, ''refs/tags/v'')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+          server-id: github-boilerplate
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+      - name: Deploy para GitHub Packages
+        run: mvn -B deploy -DskipTests=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
