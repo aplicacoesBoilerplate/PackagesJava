@@ -2,8 +2,7 @@
 
 on:
   push:
-    tags: [''v*'']
-    branches: [master]
+    tags: ['v*']
 
 permissions:
   contents: read
