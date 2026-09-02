@@ -36,13 +36,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>br.com.aplicacoesBoilerplate</groupId>
-                <artifactId>boilerplate-bom</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
