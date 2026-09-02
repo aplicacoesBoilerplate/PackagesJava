@@ -1,4 +1,4 @@
-﻿package br.com.aplicacoesBoilerplate.starter;
+package br.com.aplicacoesBoilerplate.starter;
 
 import br.com.aplicacoesBoilerplate.core.CBoilerplateInfoContributor;
 import br.com.aplicacoesBoilerplate.core.CBoilerplateProperties;
