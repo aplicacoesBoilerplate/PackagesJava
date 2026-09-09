@@ -1,4 +1,4 @@
-﻿name: Deploy - GitHub Packages (tag v* em master)
+name: Deploy - GitHub Packages (tag v* em master)
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
