@@ -39,4 +39,5 @@ boilerplate doctor
 
 ## Git Flow
 - defaultBranch: master
-- feature/* -> develop -> release/* -> master -> tag v0.0.1 -> deploy
+- feature/* -> develop -> release/* -> master; hotfix/* também pode seguir para master.
+- O versionamento usa o Release Please centralizado: [fluxo, configuração e teste da etapa 1](docs/versioning.md). Tag/GitHub Release são automáticas após o PR técnico; distribuição Maven fica para a etapa 2.
