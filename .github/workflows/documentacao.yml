@@ -12,6 +12,6 @@ permissions:
   id-token: write
 jobs:
   documentation:
-    uses: aplicacoesBoilerplate/.github/.github/workflows/documentacao-pages.yml@d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
+    uses: aplicacoesBoilerplate/.github/.github/workflows/documentacao-pages.yml@080df5aa1c803252ba91fa00ac529fc5e2006c47
     with:
       docs-dir: docs
