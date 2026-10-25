@@ -2,13 +2,24 @@ name: Release Please
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened, reopened, synchronize, edited, milestoned, demilestoned, closed]
     branches: [master]
 
 permissions:
   contents: read
 
 jobs:
+  version-policy:
+    if: github.event.action != 'closed'
+    permissions:
+      contents: read
+      pull-requests: read
+    uses: aplicacoesBoilerplate/.github/.github/workflows/version-release-please-validate.yml@d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
+    with:
+      config-file: release-please-config.json
+      project-path: .
+      central-ref: d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
+
   validate:
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/ci.yml
@@ -20,11 +31,11 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
-    uses: aplicacoesBoilerplate/.github/.github/workflows/version-release-please-called.yml@1d874d946e5f5ad233a6b1f6bf278fef78f3b46d
+    uses: aplicacoesBoilerplate/.github/.github/workflows/version-release-please-called.yml@d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
     with:
       project-type: maven
-      central-ref: 1d874d946e5f5ad233a6b1f6bf278fef78f3b46d
+      central-ref: d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
       publish-artifacts: false
-      release-config-file: release-please-config.json
-      release-manifest-file: .release-please-manifest.json
-      version-policy: milestone
+      project-path: .
+      config-file: release-please-config.json
+      manifest-file: .release-please-manifest.json

@@ -1,0 +1,17 @@
+name: Documentação
+on:
+  pull_request:
+    paths: ['docs/**', '.release-please-manifest.json', 'pom.xml', 'boilerplate-*/pom.xml', '.github/workflows/documentacao.yml']
+  push:
+    branches: [master]
+    paths: ['docs/**', '.release-please-manifest.json', 'pom.xml', 'boilerplate-*/pom.xml', '.github/workflows/documentacao.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  documentation:
+    uses: aplicacoesBoilerplate/.github/.github/workflows/documentacao-pages.yml@d79c8c621a5fc85d0327fac4aafe13d2cfdb9cd0
+    with:
+      docs-dir: docs

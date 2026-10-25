@@ -11,7 +11,10 @@
           "type": "xml",
           "path": "pom.xml",
           "xpath": "/*[local-name()=\"project\"]/*[local-name()=\"properties\"]/*[local-name()=\"revision\"]"
-        }
+        },
+        { "type": "json", "path": "docs/package.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "docs/package-lock.json", "jsonpath": "$.version" },
+        { "type": "json", "path": "docs/package-lock.json", "jsonpath": "$.packages[''].version" }
       ]
     }
   }
