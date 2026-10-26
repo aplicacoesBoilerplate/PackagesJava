@@ -33,7 +33,7 @@ T1 -> T2 -> T3
 **Tests**: Comparar trees de merge e validar spec/tasks; nenhuma mudança de runtime.
 **Gate**: Quick.
 - [x] Branch isolada da release, develop reconciliada sem conflitos; contrato específico e plano registrados.
-- [x] T1 pronta para commit/push: merge tree idêntica à release, validadores sem erros e plano linear conferido; persistir antes de T2.
+- [x] T1 publicada emcb105ff antes de T2; merge tree idêntica à release e validadores sem erros.
 
 ### T2: Homologar consumidor empacotado
 **Where**: tests/consumer/consumer-pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; recurso AutoConfiguration.imports; documentos de homologação.
@@ -50,5 +50,5 @@ T1 -> T2 -> T3
 **Requirement**: CPRO-02
 **Tests**: Verifier distinto, sensor em scratch, CI e SHA remoto.
 **Gate**: Build.
-- [ ] Revisão independente e CI aprovadas; limitações humanas explícitas.
-- [ ] Checkpoint final publicado e PR entregue, sem alegar merge/deploy não executados.
+- [x] Revisão independente7/7ACs e CI/documentação aprovadas, preservando integrações humanas.
+- [x] Checkpoint final reúne relatório/status para commit/push e PR37 para develop; conferir checks finais e tornar pronto para review.

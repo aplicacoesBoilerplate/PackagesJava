@@ -1,14 +1,14 @@
 # Homologação do consumidor Java e promoção para develop
 
-**Status:** execução autorizada pelo usuário; implementação inline, recon/revisão independente por helpers.
+**Status:** homologação técnica e revisão independente aprovadas; candidata publicada para revisão/integração humana em develop. Master e Pages permanecem pendentes.
 
 ## Problem Statement
 A release candidata já contém a infraestrutura centralizada e documentação, mas a CI não demonstra todo o uso dos artefatos por aplicações externas. Homologar antes de promover para master.
 
 ## Goals
-- [ ] Reconciliar develop com a release 2431eb20f04a33a75813cf901984084ae9079305 sem alterar o produto ou reativar distribuição.
-- [ ] Provar o uso de artefatos empacotados e registrar evidência reproduzível.
-- [ ] Entregar candidato/PR para develop, com CI/revisão e pendências humanas explícitas.
+- [x] Reconciliar develop com a release 2431eb20f04a33a75813cf901984084ae9079305 sem alterar o produto ou reativar distribuição.
+- [x] Provar o uso de artefatos empacotados e registrar evidência reproduzível.
+- [x] Entregar candidato/PR para develop, com CI/revisão e pendências humanas explícitas.
 
 ## Out of Scope
 | Feature | Reason |
@@ -53,10 +53,10 @@ A release candidata já contém a infraestrutura centralizada e documentação, 
 ## Requirement Traceability
 | Requirement ID | Story | Status |
 | --- | --- | --- |
-| CPRO-01 | Consumo real | Quatro cenários HTTP e JAR/hash aprovados; recurso BOM corrigido após RED real |
-| CPRO-02 | Promoção verificável | Em preparação |
+| CPRO-01 | Consumo real | Validado independentemente, com gates e sensores registrados no relatório |
+| CPRO-02 | Promoção verificável | PR37 para develop, CI e revisão aprovadas; integração humana pendente |
 
 ## Success Criteria
-- [ ] Artefatos instalados e cenários funcionais aprovados.
-- [ ] Gates preservados, evidências e sensor independentes aprovados.
-- [ ] Candidata publicada e PR para develop entregue; master/deploy explicitamente pendentes da integração humana.
+- [x] Artefatos instalados e cenários funcionais aprovados.
+- [x] Gates preservados, evidências e sensor independentes aprovados.
+- [x] Candidata publicada e PR para develop entregue; master/deploy explicitamente pendentes da integração humana.

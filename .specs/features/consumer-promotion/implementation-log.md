@@ -19,3 +19,10 @@
 - CI929ab93:40263567559 e docs40263579254 aprovados. O Verifier então demonstrou em memória que o updater Maven17.3 altera project/version de todo pom.xml, incluindo a fixture9.9.9; o parent Boot4.1.1 fica preservado. Esse ensaio perderia sua referência de versão numa próxima release.
 - Renomeado somente o descritor externo para tests/consumer/consumer-pom.xml e atualizados os comandos -f. A descoberta nativa usa basename igual a pom.xml, portanto exclui a fixture. Acrescentada asserção da versão de aplicação9.9.9 recebida do próprio projeto Maven e comparação da versão da biblioteca contra essa aplicação.
 - Novo gate consumer-renamed.log: um fluxo/quatro contextos HTTP aprovado em14s, com JAR/hash e versão da aplicação conferidos. Fontes das bibliotecas não mudaram; os três EOFs TLC foram normalizados para o gate do intervalo completo. Nova CI/revisão final ainda pendentes neste checkpoint.
+
+## Checkpoint final
+
+- Produto verificado ema4b16b1be5209cddee03cf10b17343941f2ef3d6; PR37 para develop. Reactor4módulos/4testes, consumidor1fluxo/4contextos HTTP e3/3sensores aprovados. Aplicação9.9.9 estável fora da descoberta Maven.
+- CI40264958515 e documentação40264958835 aprovadas no mesmo SHA; deploy corretamente ignorado em PR. Relatório independente7/7ACs, validate_state e diff completo aprovados. Este checkpoint altera apenas metadados.
+- Candidata inclui a baseline da release, sem coletar features futuras. Preferir merge commit na promoção para preservar a ancestralidade da release/bootstrap; depois revisar develop para master e comprovar Pages em execução real.
+- Checkpoint publicado antes da revisão humana. Não houve merge remoto, publicação de pacotes ou alteração do central .github/Go.
