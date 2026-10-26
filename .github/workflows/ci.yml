@@ -1,10 +1,11 @@
 ﻿name: CI - Git Flow (develop + PR para master)
 
 on:
+  workflow_call:
   push:
-    branches: [develop, master]
+    branches: [develop, master, 'release/**']
   pull_request:
-    branches: [master]
+    branches: [develop, master, 'release/**']
 
 jobs:
   verify:
