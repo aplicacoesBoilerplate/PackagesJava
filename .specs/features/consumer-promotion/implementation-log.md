@@ -15,3 +15,4 @@
 - Repin para4176883e69cf32fe36d1b893e246bbdc03885cf9, commit da release central publicada v0.1.0, somente nos callers do consumidor e guia. Comparação via API e git show confirmou identidade dos três workflows, CManifestRelease/CReleaseVersionValidator/CReleaseTagGuard e lockfile de runtime com080df5a. Nenhum arquivo central foi modificado.
 - Comandos resumidos TLC agora incluem o hash obrigatório do JAR, como README/CI já faziam. Revisão independente aprovou gates e dois sensores (hash errado/BOM), com restauração e preservação dos artefatos reais.
 - Checkpoint de integração aguarda a nova CI e consolidação do relatório antes de apresentar o PR como pronto.
+- O repin resolveu a localização do called. CI40263013892 passou; docs40263014432 encontrou link relativo recém-adicionado para fora da raiz docs/. Corrigido para URL do repositório de destino e exigido novo build VitePress antes do próximo push, sem desabilitar verificação de links.

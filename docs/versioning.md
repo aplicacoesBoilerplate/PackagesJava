@@ -19,7 +19,7 @@ publish-artifacts=false impede mvn deploy. O antigo deploy.yml perdeu o gatilho 
 
 ## Homologação do consumidor
 
-A CI instala os JARs candidatos somente no repositório Maven local e executa um fluxo HTTP externo ao reactor. O teste confere o hash do JAR recém-construído, a versão de manifesto, os controles de desativação e o bean customizado. [Reprodução](../tests/consumer/README.md).
+A CI instala os JARs candidatos somente no repositório Maven local e executa um fluxo HTTP externo ao reactor. O teste confere o hash do JAR recém-construído, a versão de manifesto, os controles de desativação e o bean customizado. [Reprodução no repositório](https://github.com/aplicacoesBoilerplate/PackagesJava/blob/master/tests/consumer/README.md).
 
 Os callers agora fixam o commit publicado da release central v0.1.0. O Actions deixou de encontrar o SHA da antiga branch de desenvolvimento depois da integração; o repin preserva os mesmos arquivos de runtime verificados, com uma referência publicada.
 
