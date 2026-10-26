@@ -1,6 +1,6 @@
 # Versionamento: etapa 1
 
-Caller local: .github/workflows/release.yml. Ele chama o workflow central e seus scripts na mesma revisão imutável 080df5aa1c803252ba91fa00ac529fc5e2006c47, depois de mvn verify do commit integrado em master. Apenas o job de release recebe escrita; não herda secrets de registry.
+Caller local: .github/workflows/release.yml. Ele chama o workflow central e seus scripts na mesma revisão imutável 4176883e69cf32fe36d1b893e246bbdc03885cf9, depois de mvn verify do commit integrado em master. Apenas o job de release recebe escrita; não herda secrets de registry.
 
 Entrega funcional (develop ou hotfix para master) declara a versão por milestone SemVer ou footer Release-As conforme o contrato central atual. O Release Please prepara um PR técnico com essa versão. Revisão, CI e merge desse PR geram a tag correspondente à versão preparada e GitHub Release automaticamente, sem outra milestone. Fechar sem merge não publica.
 
@@ -15,7 +15,13 @@ publish-artifacts=false impede mvn deploy. O antigo deploy.yml perdeu o gatilho 
 - O ciclo hospedado do consumidor permanece pendente da revisão e dos merges humanos. Depois de levar esta integração até master pelo Git Flow do projeto, usar uma entrega fix:/feat: com milestone, inspecionar o PR técnico e conferir tag/Release no SHA do segundo merge.
 - T4: implementação e gates locais concluídos; commit de integração publicado antes da tarefa seguinte. PR de integração não encerra issues funcionais; ciclo real continua pendente.
 
-[Contrato central](https://github.com/aplicacoesBoilerplate/.github/blob/080df5aa1c803252ba91fa00ac529fc5e2006c47/docs/pipelines/versionamento-release-please.md).
+[Contrato central](https://github.com/aplicacoesBoilerplate/.github/blob/4176883e69cf32fe36d1b893e246bbdc03885cf9/docs/pipelines/versionamento-release-please.md).
+
+## Homologação do consumidor
+
+A CI instala os JARs candidatos somente no repositório Maven local e executa um fluxo HTTP externo ao reactor. O teste confere o hash do JAR recém-construído, a versão de manifesto, os controles de desativação e o bean customizado. [Reprodução](../tests/consumer/README.md).
+
+Os callers agora fixam o commit publicado da release central v0.1.0. O Actions deixou de encontrar o SHA da antiga branch de desenvolvimento depois da integração; o repin preserva os mesmos arquivos de runtime verificados, com uma referência publicada.
 
 ## Iteração documental T2
 

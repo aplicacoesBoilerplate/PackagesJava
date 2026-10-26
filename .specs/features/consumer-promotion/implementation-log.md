@@ -7,3 +7,11 @@
 - Gate: quatro módulos/quatro testes originais aprovados; um teste funcional adicional passou com quatro contextos HTTP reais. Origem JAR e hash do candidato conferidos, versão0.0.1, padrão HTTP200/artifact/versão; desativação geral sem properties/contributor; desativação somente info preservando properties; custom bean único e marcador no HTTP.
 - CI passa a instalar candidatos localmente, calcular hash/versão do JAR e executar a fixture externa. publish-artifacts=false e deploy if:false preservados. A distribuição continua fora do escopo.
 - T3 ainda exige revisão independente/sensor, CI hospedada da candidata e PR para develop. Nenhum merge remoto ou publicação Pages foi realizado.
+
+## T3 em andamento
+
+- PR37 draft aberto para develop. CI40262515129 aprovou o reactor e o consumidor real no runner GitHub.
+- O workflow documental40262515353 foi rejeitado antes de criar jobs: o Actions não encontrou documentacao-pages.yml na referência080df5a. A antiga branch central foi removida após a integração; não se presumiu que o SHA continuaria utilizável por Actions.
+- Repin para4176883e69cf32fe36d1b893e246bbdc03885cf9, commit da release central publicada v0.1.0, somente nos callers do consumidor e guia. Comparação via API e git show confirmou identidade dos três workflows, CManifestRelease/CReleaseVersionValidator/CReleaseTagGuard e lockfile de runtime com080df5a. Nenhum arquivo central foi modificado.
+- Comandos resumidos TLC agora incluem o hash obrigatório do JAR, como README/CI já faziam. Revisão independente aprovou gates e dois sensores (hash errado/BOM), com restauração e preservação dos artefatos reais.
+- Checkpoint de integração aguarda a nova CI e consolidação do relatório antes de apresentar o PR como pronto.
