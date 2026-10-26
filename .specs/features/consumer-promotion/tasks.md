@@ -36,13 +36,13 @@ T1 -> T2 -> T3
 - [x] T1 pronta para commit/push: merge tree idêntica à release, validadores sem erros e plano linear conferido; persistir antes de T2.
 
 ### T2: Homologar consumidor empacotado
-**Where**: tests/consumer/pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; documentos de homologação.
+**Where**: tests/consumer/pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; recurso AutoConfiguration.imports; documentos de homologação.
 **Depends on**: T1
 **Requirement**: CPRO-01, CPRO-02
 **Tests**: mvn -B install; mvn -B -f tests/consumer/pom.xml -Dboilerplate.version=<versão candidata> verify; build VitePress; todos os casos de spec.md.
 **Gate**: Full.
-- [ ] Executar fluxo real e corrigir somente lacunas necessárias ao piloto.
-- [ ] Registrar evidências, gate e commit/push.
+- [x] Fluxo real aprovado após remover BOM UTF-8 do recurso de autoconfiguração; quatro cenários HTTP e hash/origem do JAR sem alterar asserções.
+- [x] Reactor4módulos/4testes e novo fluxo aprovados, log/reprodução registrados para commit/push; revisão e CI hospedada em T3.
 
 ### T3: Revisar e entregar promoção
 **Where**: validation.md, relatório e PR para develop.

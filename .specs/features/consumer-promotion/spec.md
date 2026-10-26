@@ -53,7 +53,7 @@ A release candidata já contém a infraestrutura centralizada e documentação, 
 ## Requirement Traceability
 | Requirement ID | Story | Status |
 | --- | --- | --- |
-| CPRO-01 | Consumo real | Pendente |
+| CPRO-01 | Consumo real | Quatro cenários HTTP e JAR/hash aprovados; recurso BOM corrigido após RED real |
 | CPRO-02 | Promoção verificável | Em preparação |
 
 ## Success Criteria

@@ -1,0 +1,9 @@
+# Homologação Java
+
+- T1 publicada em cb105ff826c70727e57e61db53d46c7c22066939. Candidata parte de release2431eb2 e incorpora develop sem alteração de tree funcional; originais sujos preservados.
+- T2 usa Maven3.9.9/Java22 com target21. Settings temporários vazios de credenciais e mirror exclusivo Maven Central; repositório local isolado em Temp/java-packaged-consumer-fdaa98bbdc2449aeae87f6e536cee4cc/repository. Nenhum settings pessoal foi lido nem deploy executado.
+- Reactor install inicial: quatro módulos aprovados e quatro testes preservados. O primeiro consumidor real falhou ao iniciar: AutoConfiguration.imports começou com EFBBBF, preservado no JAR. Spring tentou carregar uma classe com U+FEFF no nome. Os testes anteriores importavam a classe diretamente e não exercitavam esse recurso empacotado.
+- Correção mínima: remover somente o BOM UTF-8 desse recurso. O mesmo teste, sem relaxar asserções, passou após reconstruir/reinstalar os candidatos. Logs reactor-fixed.log e consumer-fixed.log preservados no scratch.
+- Gate: quatro módulos/quatro testes originais aprovados; um teste funcional adicional passou com quatro contextos HTTP reais. Origem JAR e hash do candidato conferidos, versão0.0.1, padrão HTTP200/artifact/versão; desativação geral sem properties/contributor; desativação somente info preservando properties; custom bean único e marcador no HTTP.
+- CI passa a instalar candidatos localmente, calcular hash/versão do JAR e executar a fixture externa. publish-artifacts=false e deploy if:false preservados. A distribuição continua fora do escopo.
+- T3 ainda exige revisão independente/sensor, CI hospedada da candidata e PR para develop. Nenhum merge remoto ou publicação Pages foi realizado.
