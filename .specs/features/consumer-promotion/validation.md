@@ -2,9 +2,9 @@
 
 **Date:** 2026-10-26
 **Verifier:** `/root/consumer_java_verifier`, distinto do autor `/root`.
-**Result:** PASS técnico de T1/T2. T3 permanece PENDENTE de PR/CI hospedada e checkpoint final; não declarar a promoção completa com este resultado isolado.
+**Result:** FAIL na revisão complementar de versionamento: o POM da fixture ainda é coletado pelo Maven nativo e perde a versão sentinela9.9.9 na próxima release. Gates atuais/CI passam; corrigir a descoberta da fixture antes da entrega. Master/Pages permanecem pendentes.
 **Spec:** `.specs/features/consumer-promotion/spec.md`.
-**Diff range:** `2431eb20f04a33a75813cf901984084ae9079305..bfccb5b926eed6fad2fb5e94210903f2cadc718a`.
+**Diff range:** `2431eb20f04a33a75813cf901984084ae9079305..929ab9384419ea80cdbaac8cbf7824a0b185ed16`; gates locais/sensores em bfccb5b, código Java/fixture/CI inalterado desde então e gate hospedado final em929ab93.
 
 ## Escopo e isolamento
 
@@ -20,7 +20,7 @@ Antes e depois dos sensores: HEAD real bfccb5b e porcelain vazio. SHA-256 dos JA
 | --- | --- | --- |
 | T1 candidata/contrato | PASS | cb105ff publicado; ancestralidade develop confirmada; spec/tasks sem erros. |
 | T2 consumo empacotado | PASS | Reactor quatro módulos/quatro testes; fluxo adicional com quatro contextos HTTP; VitePress e dois sensores aprovados. |
-| T3 entrega para develop | PENDENTE | Precisa PR, CI hospedada e persistência final pelo implementador; nenhum merge/master/Pages presumido. |
+| T3 entrega para develop | PASS dos gates e PR | PR37 aberto para develop em929ab93, CI40263567559 e docs40263579254 aprovados; checkpoint final pelo implementador, integração humana pendente. |
 
 ## Spec-Anchored Acceptance Criteria
 
@@ -32,11 +32,11 @@ Os paths abaixo pertencem ao consumidor Java. `CPackagedConsumerTest.java` signi
 | CPRO-01.AC2 desativação geral | HTTP200, sem boilerplate/properties/contributor | `CPackagedConsumerTest.java:50-53`: contexto com boilerplate.enabled=false, dois mapas `.isEmpty()` e HTTP `.doesNotContainKey("boilerplate")`; `:80` status200. | PASS |
 | CPRO-01.AC3 desativação somente info | HTTP200, properties presente, contributor e payload ausentes | `CPackagedConsumerTest.java:55-58`: `.isEmpty()` no contributor, `.hasSize(1)` nas properties e HTTP sem boilerplate; `:80` status200. | PASS |
 | CPRO-01.AC4 customização | Um contributor, identidade preservada e marcador HTTP customizado | `CPackagedConsumerTest.java:60-63`: `.hasSize(1)`, `.isSameAs(CUSTOM)`, `containsEntry("boilerplate", Map.of("source", "custom"))`; `:80` status200. | PASS |
-| CPRO-02.AC1 preservação | Features da release, contrato080df5a, distribuição false, testes existentes | Diff não modifica fontes Java de negócio; `.github/workflows/release.yml:17,21,34,37-38` preserva SHA/false; `.github/workflows/deploy.yml:12` continua if:false. Suíte original1core+3starter passa no snapshot, sem skips. | PASS |
-| CPRO-02.AC2 persistir antes de PR | Commits publicados com SHA/gates/limitações | `implementation-log.md:3-9`, README e histórico cb105ff/bfccb5b; ls-remote confirmou bfccb5b publicado antes da criação do PR de promoção, ainda pendente neste checkpoint. | PASS do checkpoint T1/T2; conferir novamente no fechamento |
-| CPRO-02.AC3 revisão/CI/autoridade | Revisão independente e CI da candidata, promoção humana explícita | Este relatório comprova revisão/sensor local; CI hospedada/PR ainda não executados neste checkpoint. A spec mantém master/Pages pendentes de merge humano. | PENDENTE T3 |
+| CPRO-02.AC1 preservação | Features da release, contrato4176883, distribuição false, testes existentes | Diff após bfccb5b não altera fontes Java/fixture/CI; `.github/workflows/release.yml:17,21,34,37-38` fixa4176883/false e `.github/workflows/documentacao.yml:15` usa o mesmo SHA publicado. Treze blobs de runtime/script/lockfile/contratos em080df5a e4176883 são idênticos. `.github/workflows/deploy.yml:12` continua if:false. Suíte original1core+3starter preservada. | PASS |
+| CPRO-02.AC2 persistir antes de PR | Commits publicados com SHA/gates/limitações | `implementation-log.md:3-9`, README e histórico cb105ff/bfccb5b contêm o relatório/gates/código publicados antes do PR. No fechamento, ls-remote e PR37 confirmaram exatamente929ab9384419ea80cdbaac8cbf7824a0b185ed16 publicado; resultado intermediário foi corrigido, sem merge remoto. | PASS |
+| CPRO-02.AC3 revisão/CI/autoridade | Revisão independente e CI da candidata, promoção humana explícita | Este relatório/sensor, `.github/workflows/ci.yml:25,38` e logs do run40263567559 provam4testes originais+1fluxo HTTP, zero falhas/skips. PR37 é OPEN/draft para develop, mergeable, head929ab93; docs40263579254 buildSUCCESS/deploySKIPPED. Master/Pages continuam humanos/pendentes. | PASS |
 
-**Adequação:** seis critérios verificados neste checkpoint e um operacional pendente. Os quatro cenários funcionais usam uma aplicação HTTP real, com autoconfiguração descoberta pelo recurso dentro do starter JAR; não importam a classe de autoconfiguração manualmente. Todas as asserções novas pertencem a CPRO-01 ou à vinculação do candidato empacotado, sem testar features futuras.
+**Adequação:** os gates atuais cobrem os sete critérios, mas a revisão complementar encontrou uma lacuna na preservação do instrumento de CPRO-01.AC1 durante o próximo versionamento. Os quatro cenários funcionais usam uma aplicação HTTP real, com autoconfiguração descoberta pelo recurso dentro do starter JAR; não importam a classe de autoconfiguração manualmente. Todas as asserções novas pertencem a CPRO-01 ou à vinculação do candidato empacotado, sem testar features futuras.
 
 ## Gate Check
 
@@ -65,6 +65,23 @@ O gate inicial do autor falhou pelo mesmo BOM na baseline de release: recurso de
 
 ## Pendências e limites
 
-- Os comandos resumidos em spec.md/tasks.md deste HEAD omitem `-Dboilerplate.jar.sha256`; README e CI já o incluem corretamente. O implementador confirmou que corrigirá esse contrato documental no checkpoint T3. O gate real executado incluiu ambos os parâmetros; não houve simplificação de asserções.
-- CPRO-02.AC3 só fica concluído após evidência do PR para develop e de sua CI. Este PASS técnico não comprova publicação Pages nem integração em master.
+- Os comandos resumidos em spec.md/tasks.md foram corrigidos para incluir `-Dboilerplate.jar.sha256`, como já faziam README/CI. Os gates reais sempre incluíram ambos os parâmetros; nenhuma asserção foi simplificada.
+- CPRO-02.AC3 agora tem PR37/CI final comprovados. Este PASS técnico não comprova merge em develop/master ou publicação Pages; o PR foi verificado como draft, e o checkpoint de entrega/revisão é concluído pelo implementador.
 - Nenhum gap funcional restante encontrado no código T1/T2. A decisão de integrar continua com a revisão humana.
+
+## Consolidação T3 no HEAD929ab93
+
+- Reconsulta independente do PR37 confirmou destino develop, head929ab9384419ea80cdbaac8cbf7824a0b185ed16, estado OPEN/draft, mergeable e checks finais aprovados. ls-remote confirmou o mesmo SHA publicado.
+- [CI40263567559](https://github.com/aplicacoesBoilerplate/PackagesJava/actions/runs/40263567559): SUCCESS no HEAD final. Logs conferidos: quatro módulos; teste core1/starter3 e consumidor1, zero falhas/erros/skips; os passos de install, hash candidato e consumidor real concluíram com sucesso.
+- [Documentação40263579254](https://github.com/aplicacoesBoilerplate/PackagesJava/actions/runs/40263579254): buildSUCCESS no mesmo HEAD, VitePress real; upload/deploySKIPPED em PR conforme o contrato. O link externo de reprodução agora aponta para o repositório, sem tentar resolver ../tests como página VitePress.
+- O repin de080df5a para4176883e69cf32fe36d1b893e246bbdc03885cf9 resolve a referência de Actions sem alterar o runtime. A comparação independente das trees Git via API verificou treze blobs: todos os scripts centrais, package.json/package-lock.json e os três contratos documentacao-pages/version-release-please-called/version-release-please-validate têm SHA de blob idêntico nos dois commits. A Release centralv0.1.0 está publicada nesse novo commit, não draft/prerelease. Somente callers dos consumidores foram alterados; nenhuma escrita no central foi realizada.
+- Entre bfccb5b e929ab93 mudaram callers, evidências TLC e documentação. Biblioteca Java, recurso corrigido, fixture e CI de consumo não mudaram; não houve repetição desnecessária de compiladores/sensores locais. A nova execução hospedada comprova esses mesmos gates em Java21.
+- Validação estrutural final e diff check são executados sobre este relatório. Os arquivos de implementação permanecem somente leitura pelo Verifier; somente este relatório foi atualizado na consolidação.
+
+## Gap complementar: POM da fixture descoberto pelo versionamento nativo
+
+- **Prioridade:** P1, corrigir antes de entregar a candidata. CPRO-01.AC1 depende de um aplicativo sentinela9.9.9 distinto da biblioteca; o ensaio não deve perder essa distinção a cada release.
+- **Causa comprovada:** SDK17.3.0 `strategies/maven.js:32` chama `findFilesByFilenameAndRef('pom.xml', ...)` e aplica `PomXml` a todo resultado. `updaters/java/pom-xml.js:33-43` reescreve project/version quando presente. Portanto tests/consumer/pom.xml é coletado junto com os quatro POMs de artefatos.
+- **Ensaio independente somente em memória:** `new PomXml(Version.parse('0.0.2')).updateContent(conteudoRealDaFixture)` removeu9.9.9 e colocou0.0.2; o parent Spring Boot permaneceu4.1.1 porque project/version existe. Não houve escrita de fonte ou chamada GitHub pelo ensaio.
+- **Correção mínima proposta:** renomear o descritor da fixture para consumer-pom.xml e atualizar os caminhos `-f` na CI/README/spec/tasks. O Maven aceita o descritor explícito; a descoberta nativa por nome exato deixa de coletá-lo. Não alterar o central ou o algoritmo nativo.
+- **Done when:** o descritor deixa de ser chamado pom.xml, todas as invocações apontam para o novo arquivo, o ensaio nativo preserva fixture9.9.9/parent4.1.1 e o consumidor/CI correspondente passam. Os testes HTTP e asserções devem permanecer idênticos.

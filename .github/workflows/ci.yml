@@ -35,4 +35,4 @@ jobs:
             core.setOutput('version', version);
             core.setOutput('sha256', crypto.createHash('sha256').update(jar).digest('hex'));
       - name: Homologar consumidor com JARs reais
-        run: mvn -B -f tests/consumer/pom.xml "-Dboilerplate.version=${{ steps.candidate.outputs.version }}" "-Dboilerplate.jar.sha256=${{ steps.candidate.outputs.sha256 }}" verify
+        run: mvn -B -f tests/consumer/consumer-pom.xml "-Dboilerplate.version=${{ steps.candidate.outputs.version }}" "-Dboilerplate.jar.sha256=${{ steps.candidate.outputs.sha256 }}" verify

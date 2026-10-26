@@ -10,14 +10,14 @@ Sem writes no central .github ou Go; sem registry/deploy; sem coletar PRs futuro
 ## Test Coverage Matrix
 | Layer | Required Test Type | Coverage | Location | Command |
 | --- | --- | --- | --- | --- |
-| Consumidor | Fluxo funcional real | CPRO-01 completo | tests/consumer/pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; documentos de homologação | mvn -B install; mvn -B -f tests/consumer/pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
+| Consumidor | Fluxo funcional real | CPRO-01 completo | tests/consumer/consumer-pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; documentos de homologação | mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
 | Promoção | Gate/revisão | CPRO-02 | .specs/ e PR | Gate completo e APIs/Git |
 
 ## Gate Check Commands
 | Gate | Command |
 | --- | --- |
 | Quick | Validadores TLC e git diff --check para documentação |
-| Full | mvn -B install; mvn -B -f tests/consumer/pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
+| Full | mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
 | Build | Full + revisão independente/CI |
 
 ## Execution Plan
@@ -36,10 +36,10 @@ T1 -> T2 -> T3
 - [x] T1 pronta para commit/push: merge tree idêntica à release, validadores sem erros e plano linear conferido; persistir antes de T2.
 
 ### T2: Homologar consumidor empacotado
-**Where**: tests/consumer/pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; recurso AutoConfiguration.imports; documentos de homologação.
+**Where**: tests/consumer/consumer-pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; recurso AutoConfiguration.imports; documentos de homologação.
 **Depends on**: T1
 **Requirement**: CPRO-01, CPRO-02
-**Tests**: mvn -B install; mvn -B -f tests/consumer/pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress; todos os casos de spec.md.
+**Tests**: mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress; todos os casos de spec.md.
 **Gate**: Full.
 - [x] Fluxo real aprovado após remover BOM UTF-8 do recurso de autoconfiguração; quatro cenários HTTP e hash/origem do JAR sem alterar asserções.
 - [x] Reactor4módulos/4testes e novo fluxo aprovados, log/reprodução registrados para commit/push; revisão e CI hospedada em T3.
@@ -52,4 +52,3 @@ T1 -> T2 -> T3
 **Gate**: Build.
 - [ ] Revisão independente e CI aprovadas; limitações humanas explícitas.
 - [ ] Checkpoint final publicado e PR entregue, sem alegar merge/deploy não executados.
-

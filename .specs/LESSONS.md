@@ -20,6 +20,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md:66; AutoConfiguration.imports:1; CPackagedConsumerTest.java:45 (starter/packaging) (+1 more)
 - last seen: 2026-10-26T03:10:34Z
 
+### L-002 - Mantenha o descritor de fixtures Maven com versão sentinela fora da descoberta nativa por nome pom.xml.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `tests/consumer/versioning` · harmful: 0
+- features: consumer-promotion
+- evidence: validation.md:80; release-please17.3.0/strategies/maven.js:32; tests/consumer/pom.xml:13 (tests/consumer/versioning)
+- last seen: 2026-10-26T03:32:09Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

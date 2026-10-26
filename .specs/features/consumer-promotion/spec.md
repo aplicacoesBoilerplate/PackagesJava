@@ -35,7 +35,7 @@ A release candidata já contém a infraestrutura centralizada e documentação, 
 2. WHEN boilerplate.enabled=false THEN o consumidor SHALL responder HTTP200 sem boilerplate, sem properties e sem contributor.
 3. WHEN boilerplate.info.enabled=false THEN o consumidor SHALL responder HTTP200 sem boilerplate, preservando properties e removendo somente o contributor.
 4. WHEN o consumidor declarar um bean customizado THEN ele SHALL manter exatamente um contributor, a identidade customizada e seu marcador no HTTP, sem bean automático duplicado.
-**Independent Test:** mvn -B install; mvn -B -f tests/consumer/pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress.
+**Independent Test:** mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress.
 
 ### P1: Promoção verificável
 **User Story:** Como mantenedor, quero revisar uma candidata fiel à release e ao destino.
@@ -60,4 +60,3 @@ A release candidata já contém a infraestrutura centralizada e documentação, 
 - [ ] Artefatos instalados e cenários funcionais aprovados.
 - [ ] Gates preservados, evidências e sensor independentes aprovados.
 - [ ] Candidata publicada e PR para develop entregue; master/deploy explicitamente pendentes da integração humana.
-

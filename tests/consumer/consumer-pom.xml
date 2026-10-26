@@ -51,6 +51,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
+                        <consumer.application.version>${project.version}</consumer.application.version>
                         <boilerplate.version>${boilerplate.version}</boilerplate.version>
                         <boilerplate.jar.sha256>${boilerplate.jar.sha256}</boilerplate.jar.sha256>
                     </systemPropertyVariables>

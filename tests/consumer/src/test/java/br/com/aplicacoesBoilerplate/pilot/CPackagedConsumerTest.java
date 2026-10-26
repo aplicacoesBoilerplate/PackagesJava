@@ -35,12 +35,14 @@ class CPackagedConsumerTest {
     @Test
     void shouldConsumeCandidateJarAndHonorStarterControlsOverHttp() throws Exception {
         String version = System.getProperty("boilerplate.version");
+        String applicationVersion = System.getProperty("consumer.application.version");
+        assertThat(applicationVersion).isEqualTo("9.9.9");
         Path jar = Path.of(CBoilerplateInfoContributor.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         assertThat(jar.toString()).endsWith(".jar");
         assertThat(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(jar))))
                 .isEqualTo(System.getProperty("boilerplate.jar.sha256"));
         assertThat(CBoilerplateInfoContributor.class.getPackage().getImplementationVersion())
-                .isEqualTo(version).isNotEqualTo("9.9.9").isNotEqualTo("unknown");
+                .isEqualTo(version).isNotEqualTo(applicationVersion).isNotEqualTo("unknown");
 
         try (ConfigurableApplicationContext context = start(false)) {
             assertThat(context.getBeansOfType(CBoilerplateInfoContributor.class)).hasSize(1);
