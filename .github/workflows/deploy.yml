@@ -1,16 +1,15 @@
 ﻿name: Deploy - GitHub Packages (tag v* em master)
 
 on:
-  push:
-    tags: ['v*']
+  workflow_dispatch:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   deploy:
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Distribuição é etapa 2; nem execução manual publica enquanto este guard existir.
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

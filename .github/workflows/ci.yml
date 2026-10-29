@@ -1,10 +1,11 @@
 ﻿name: CI - Git Flow (develop + PR para master)
 
 on:
+  workflow_call:
   push:
-    branches: [develop, master]
+    branches: [develop, master, 'release/**']
   pull_request:
-    branches: [master]
+    branches: [develop, master, 'release/**']
 
 jobs:
   verify:
@@ -20,5 +21,18 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: maven
-      - name: Verify (sem deploy)
-        run: mvn -B verify
+      - name: Verify e instalar candidatos localmente (sem deploy)
+        run: mvn -B install
+      - name: Identificar JAR candidato
+        id: candidate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const crypto = require('node:crypto');
+            const version = JSON.parse(fs.readFileSync('.release-please-manifest.json', 'utf8'))['.'];
+            const jar = fs.readFileSync(`boilerplate-core/target/boilerplate-core-${version}.jar`);
+            core.setOutput('version', version);
+            core.setOutput('sha256', crypto.createHash('sha256').update(jar).digest('hex'));
+      - name: Homologar consumidor com JARs reais
+        run: mvn -B -f tests/consumer/consumer-pom.xml "-Dboilerplate.version=${{ steps.candidate.outputs.version }}" "-Dboilerplate.jar.sha256=${{ steps.candidate.outputs.sha256 }}" verify

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 3,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "gate_fail::valide a autoconfiguracao pelo jar empacotado importar classes diretamente nao verifica os recursos meta inf spring",
+      "text": "Valide a autoconfiguração pelo JAR empacotado; importar classes diretamente não verifica os recursos META-INF/spring.",
+      "signal": "gate_fail",
+      "scope": "starter/packaging",
+      "status": "candidate",
+      "features": [
+        "consumer-promotion"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md:66; AutoConfiguration.imports:1; CPackagedConsumerTest.java:45 (starter/packaging)",
+        "validation.md:64; implementation-log.md:5; CPackagedConsumerTest.java:45 (starter/packaging)"
+      ],
+      "created": "2026-10-26T03:09:43Z",
+      "last_seen": "2026-10-26T03:10:34Z"
+    },
+    {
+      "id": "L-002",
+      "key": "ac_gap::mantenha o descritor de fixtures maven com versao sentinela fora da descoberta nativa por nome pom xml",
+      "text": "Mantenha o descritor de fixtures Maven com versão sentinela fora da descoberta nativa por nome pom.xml.",
+      "signal": "ac_gap",
+      "scope": "tests/consumer/versioning",
+      "status": "candidate",
+      "features": [
+        "consumer-promotion"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md:80; release-please17.3.0/strategies/maven.js:32; tests/consumer/pom.xml:13 (tests/consumer/versioning)"
+      ],
+      "created": "2026-10-26T03:32:09Z",
+      "last_seen": "2026-10-26T03:32:09Z"
+    }
+  ]
+}
