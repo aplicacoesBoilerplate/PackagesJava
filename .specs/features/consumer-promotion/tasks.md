@@ -1,0 +1,54 @@
+# Homologação Java: plano de execução
+
+**Goal:** provar o consumo empacotado da release atual e preparar promoção para develop.
+**Architecture:** consumidor isolado com artefatos reais; preservar fontes funcionais, contrato central e distribuição desligada.
+**Spec:** spec.md. Execução inline já escolhida; helpers somente recon e revisão.
+
+## Global Constraints
+Sem writes no central .github ou Go; sem registry/deploy; sem coletar PRs futuros; sem merges remotos por conta própria.
+
+## Test Coverage Matrix
+| Layer | Required Test Type | Coverage | Location | Command |
+| --- | --- | --- | --- | --- |
+| Consumidor | Fluxo funcional real | CPRO-01 completo | tests/consumer/consumer-pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; documentos de homologação | mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
+| Promoção | Gate/revisão | CPRO-02 | .specs/ e PR | Gate completo e APIs/Git |
+
+## Gate Check Commands
+| Gate | Command |
+| --- | --- |
+| Quick | Validadores TLC e git diff --check para documentação |
+| Full | mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress |
+| Build | Full + revisão independente/CI |
+
+## Execution Plan
+```text
+T1 -> T2 -> T3
+```
+
+## Task Breakdown
+### T1: Preparar candidata e contrato
+**Where**: .specs/ e histórico candidato.
+**Depends on**: None
+**Requirement**: CPRO-02
+**Tests**: Comparar trees de merge e validar spec/tasks; nenhuma mudança de runtime.
+**Gate**: Quick.
+- [x] Branch isolada da release, develop reconciliada sem conflitos; contrato específico e plano registrados.
+- [x] T1 publicada emcb105ff antes de T2; merge tree idêntica à release e validadores sem erros.
+
+### T2: Homologar consumidor empacotado
+**Where**: tests/consumer/consumer-pom.xml e um único teste Java de fluxo; .github/workflows/ci.yml; recurso AutoConfiguration.imports; documentos de homologação.
+**Depends on**: T1
+**Requirement**: CPRO-01, CPRO-02
+**Tests**: mvn -B install; mvn -B -f tests/consumer/consumer-pom.xml -Dboilerplate.version=<versão candidata> -Dboilerplate.jar.sha256=<hash do JAR candidato> verify; build VitePress; todos os casos de spec.md.
+**Gate**: Full.
+- [x] Fluxo real aprovado após remover BOM UTF-8 do recurso de autoconfiguração; quatro cenários HTTP e hash/origem do JAR sem alterar asserções.
+- [x] Reactor4módulos/4testes e novo fluxo aprovados, log/reprodução registrados para commit/push; revisão e CI hospedada em T3.
+
+### T3: Revisar e entregar promoção
+**Where**: validation.md, relatório e PR para develop.
+**Depends on**: T2
+**Requirement**: CPRO-02
+**Tests**: Verifier distinto, sensor em scratch, CI e SHA remoto.
+**Gate**: Build.
+- [x] Revisão independente7/7ACs e CI/documentação aprovadas, preservando integrações humanas.
+- [x] Checkpoint final reúne relatório/status para commit/push e PR37 para develop; conferir checks finais e tornar pronto para review.

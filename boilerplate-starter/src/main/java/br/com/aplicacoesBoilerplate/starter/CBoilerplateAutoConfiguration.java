@@ -2,8 +2,8 @@ package br.com.aplicacoesBoilerplate.starter;
 
 import br.com.aplicacoesBoilerplate.core.CBoilerplateInfoContributor;
 import br.com.aplicacoesBoilerplate.core.CBoilerplateProperties;
-import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +17,9 @@ import org.springframework.context.annotation.Bean;
 public class CBoilerplateAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean(CBoilerplateInfoContributor.class)
     @ConditionalOnProperty(prefix = "boilerplate.info", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public InfoContributor boilerplateInfoContributor() {
+    public CBoilerplateInfoContributor boilerplateInfoContributor() {
         return new CBoilerplateInfoContributor();
     }
 }
